@@ -1,23 +1,30 @@
 'use client'
 import { TextField,Label,Input,FieldError,Select,ListBox,TextArea,Button } from "@heroui/react";
 
+
 const AddPetForm = () => {
 
     const onSubmit=async(e)=>{
         e.preventDefault();
-        const formData=new FormData(e.currentTarget);
+        const form= e.currentTarget;
+        const formData=new FormData(form);
         const data=Object.fromEntries(formData.entries());
-        console.log(data);
+        // console.log(data);
 
-        // const res= await fetch('http://localhost:5000/destination',{
-        //     method:"POST",
-        //     headers:{
-        //         'content-type':'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        // const serverRes= await res.json();
-        // console.log(serverRes);
+        const res= await fetch('http://localhost:5000/add-pet',{
+            method:"POST",
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        const serverRes= await res.json();
+        console.log(res.ok);
+        if(res.ok){
+            alert("add Success");
+            form.reset();
+        }
+        
     }
     return (
         <div className="">
@@ -183,15 +190,15 @@ const AddPetForm = () => {
                         />
                         <FieldError />
                     </TextField>
+                    <TextField name="location" isRequired>
+                        <Label>Location</Label>
+                        <Input
+                            placeholder="Dhaka"
+                            className="rounded-2xl"
+                        />
+                        <FieldError />
+                    </TextField>
 
-                    {/* Departure Date */}
-                    <div className="md:col-span-2">
-                        <TextField name="departureDate" type="date" isRequired>
-                            <Label>Departure Date</Label>
-                            <Input type="date" className="rounded-2xl" />
-                            <FieldError />
-                        </TextField>
-                    </div>
 
                     {/* Image URL - Removed preview */}
                     <div className="md:col-span-2">
@@ -200,6 +207,19 @@ const AddPetForm = () => {
                             <Input
                                 type="url"
                                 placeholder="https://example.com/bali-paradise.jpg"
+                                className="rounded-2xl"
+                            />
+                            <FieldError />
+                        </TextField>
+                    </div>
+                    <div className="md:col-span-2">
+                        <TextField name="email" defaultValue={`example@gmail.com`} >
+                            <Label>User Email</Label>
+                            <Input
+                                value={`example@gmail.com`}
+                                readOnly
+                                type="email"
+                                placeholder={`john@gmail.com`}
                                 className="rounded-2xl"
                             />
                             <FieldError />
