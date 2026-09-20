@@ -28,6 +28,7 @@ export default function Navbar() {
       <div className="flex gap-6 items-center">
         <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</Link>
         <Link href="/pets" className="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">All Pets</Link>
+        <Link href="/add-pet" className="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Add Pets</Link>
 
         {user && (
           <>

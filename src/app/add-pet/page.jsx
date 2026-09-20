@@ -1,7 +1,7 @@
 import AddPetForm from '@/components/AddPetForm';
 import React from 'react';
 
-const AddPet = () => {
+const AddPet= () => {
     return (
         <div>
             <AddPetForm></AddPetForm>
@@ -9,4 +9,4 @@ const AddPet = () => {
     );
 };
 
-export default AddPet;
+export default AddPetForm;
