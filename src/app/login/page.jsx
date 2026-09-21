@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -13,9 +13,10 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signIn.email({
-        email,
-        password,
+      const { data, error } = await authClient.signIn.email({
+        email: email,
+        password: password, // required, The password of the user. It should be at least 8 characters long and max 128 by default.
+        
       });
       toast.success("Successfully logged in!");
       router.push("/");
@@ -36,7 +37,7 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto my-12 bg-white p-8 rounded-2xl shadow-lg border">
+    <div className="max-w-md mx-auto my-12 p-8 rounded-2xl shadow-lg border">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Welcome Back</h2>
 
       <form onSubmit={handleLogin} className="space-y-4">

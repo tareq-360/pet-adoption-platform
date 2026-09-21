@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signUp, signIn } from "@/lib/auth-client";
+import { signUp, signIn, authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -39,11 +39,11 @@ export default function Register() {
     }
 
     try {
-      await signUp.email({
-        email,
-        password,
-        name,
-        image: image || "https://i.ibb.co/mJR454d/user.png",
+      const { data, error } = await authClient.signUp.email({
+        name: name, 
+        email: email, 
+        password: password, 
+        image:image || "https://example.com/image.png", 
       });
       toast.success("Account created successfully!");
       router.push("/");
@@ -64,12 +64,12 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 bg-white p-8 rounded-2xl shadow-lg border">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Register on PetPals</h2>
+    <div className="max-w-md mx-auto my-10 p-8 rounded-2xl shadow-lg border">
+      <h2 className="text-2xl font-bold text-center mb-6 text-blue-500">Register on PetPals</h2>
 
       <form onSubmit={handleRegister} className="space-y-4">
         <div>
-          <label className="text-xs font-semibold text-gray-600">Full Name</label>
+          <label className="text-xs font-semibold text-white">Full Name</label>
           <input
             type="text"
             required
@@ -80,7 +80,7 @@ export default function Register() {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-600">Email Address</label>
+          <label className="text-xs font-semibold text-white">Email Address</label>
           <input
             type="email"
             required
@@ -91,7 +91,7 @@ export default function Register() {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-600">Photo URL</label>
+          <label className="text-xs font-semibold text-white">Photo URL</label>
           <input
             type="url"
             className="w-full border p-2.5 rounded-lg text-sm mt-1 focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -101,7 +101,7 @@ export default function Register() {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-600">Password</label>
+          <label className="text-xs font-semibold text-white">Password</label>
           <input
             type="password"
             required
@@ -112,7 +112,7 @@ export default function Register() {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-600">Confirm Password</label>
+          <label className="text-xs font-semibold text-white">Confirm Password</label>
           <input
             type="password"
             required
@@ -137,7 +137,7 @@ export default function Register() {
 
       <button
         onClick={handleGoogleLogin}
-        className="w-full border py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition text-sm font-medium"
+        className="w-full border py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-400 transition text-sm font-medium"
       >
         Continue with Google
       </button>
