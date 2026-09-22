@@ -15,8 +15,7 @@ export default function Login() {
     try {
       const { data, error } = await authClient.signIn.email({
         email: email,
-        password: password, // required, The password of the user. It should be at least 8 characters long and max 128 by default.
-        
+        password: password, 
       });
       toast.success("Successfully logged in!");
       router.push("/");

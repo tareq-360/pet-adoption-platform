@@ -1,23 +1,19 @@
-import Link from "next/link";
+'use client'
+import Link from 'next/link';
 
 
-
-const AllPets = async () => {
-    const allPets = await fetch(`http://localhost:5000/all-pets`)
-    const data = await allPets.json();
-    // console.log(data);
+const PetDetails = ({pet}) => {
     return (
-        <div className=" grid grid-cols-4 gap-3 py-5">
-            {
-                data.map(pet => <div key={pet._id} className="card bg-base-100 shadow-sm border">
-                    <Link href={`pets/${pet._id}`}>
+        <div className=' max-w-2xl'>
+            
+            <div  className="card bg-base-100 shadow-sm border">
                         <figure>
-                            <img
+                            <img className=' h-70 rounded-md'
                                 src={pet.imageUrl}
                                 alt={pet.name}
                             />
                         </figure>
-                    </Link>
+                    
                     <div className="card-body">
                         <h2 className=" text-center font-bold text-xl">{pet.name}</h2>
                         <h2 className="">
@@ -32,10 +28,9 @@ const AllPets = async () => {
 
                     </div>
                     <button className=" btn btn-secondary">Adopt Now </button>
-                </div>)
-            }
+                </div>
         </div>
     );
 };
 
-export default AllPets;
+export default PetDetails;
