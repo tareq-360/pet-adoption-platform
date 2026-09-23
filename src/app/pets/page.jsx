@@ -1,3 +1,4 @@
+import SearchAndSorting from "@/components/SearchAndSorting";
 import Link from "next/link";
 
 
@@ -7,33 +8,9 @@ const AllPets = async () => {
     const data = await allPets.json();
     // console.log(data);
     return (
-        <div className=" grid grid-cols-4 gap-3 py-5">
-            {
-                data.map(pet => <div key={pet._id} className="card bg-base-100 shadow-sm border">
-                    <Link href={`pets/${pet._id}`}>
-                        <figure>
-                            <img
-                                src={pet.imageUrl}
-                                alt={pet.name}
-                            />
-                        </figure>
-                    </Link>
-                    <div className="card-body">
-                        <h2 className=" text-center font-bold text-xl">{pet.name}</h2>
-                        <h2 className="">
-
-                            <div className=" border  rounded-sm flex"> <p>Vaccination : </p> <p className=" uppercase"> {pet.Vaccination}</p></div>
-                        </h2>
-                        <p>{pet.description}</p>
-                        <div className="card-actions justify-end">
-                            <div className="badge badge-outline">Fee : {pet.adoptionFee}</div>
-                            <div className="badge badge-outline">Age : {pet.age}</div>
-                        </div>
-
-                    </div>
-                    <button className=" btn btn-secondary">Adopt Now </button>
-                </div>)
-            }
+        <div className=" pt-5 container mx-auto">
+            <SearchAndSorting data={data}></SearchAndSorting>
+            
         </div>
     );
 };
