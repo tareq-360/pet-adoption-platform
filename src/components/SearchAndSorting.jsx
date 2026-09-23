@@ -3,10 +3,11 @@ import { Description, Label, SearchField, ListBox, Select } from "@heroui/react"
 import { toLowerCase } from "better-auth";
 import Link from "next/link";
 import { useState } from "react";
+import SearchNotFound from "./SearchNotFound";
 
 const SearchAndSorting = ({ data }) => {
     const [sorting, setSorting] = useState(data);
-    const [searchingVal, setSearchingVal] = useState([""]);
+    const [searchingVal, setSearchingVal] = useState([null]);
     const [searchData, setSearchData] = useState(null);
 
 
@@ -17,19 +18,20 @@ const SearchAndSorting = ({ data }) => {
         if (key === "all") {
             return setSorting(data);
         }
-        const category = data.filter((pet) => pet.species?.toLowerCase() == key?.toLowerCase())
+        const category = data?.filter((pet) => pet.species?.toLowerCase() == key?.toLowerCase())
         // console.log(category);
         setSorting(category);
     }
     const handleSearch = () => {
-        if (searchingVal) {
-            console.log(searchingVal);
-        }
-        const searchAllData = data.filter(data => data.name.toLowerCase().includes(searchingVal.toLowerCase()));
+        // if (searchingVal) {
+        //     console.log(searchingVal);
+        // }
+        const searchAllData = data?.filter(data => data.name?.toLowerCase().includes(searchingVal?.toLowerCase()));
         // console.log(searchAllData);
         setSearchData(searchAllData);
     }
-    // console.log(sorting);
+
+
     return (
         <div>
             <div className=" container mx-auto bg-slate-900 h-20 flex justify-between items-center">
@@ -84,8 +86,11 @@ const SearchAndSorting = ({ data }) => {
 
 
             </div>
+           
             {
+                searchData!=null && searchData.length==0 ? <SearchNotFound></SearchNotFound> :
                 searchData ?
+
 
                     <div className=" grid grid-cols-4 gap-3 py-5">
 
@@ -184,6 +189,7 @@ const SearchAndSorting = ({ data }) => {
                         </div>
 
             }
+            
         </div>
     );
 };
