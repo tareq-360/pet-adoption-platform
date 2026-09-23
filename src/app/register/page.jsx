@@ -53,14 +53,9 @@ export default function Register() {
   };
 
   const handleGoogleLogin = async () => {
-    try {
-      await signIn.social({
-        provider: "google",
-        callbackURL: "/",
-      });
-    } catch (err) {
-      toast.error(err.message || "Google Sign-In failed!");
-    }
+    const data = await authClient.signIn.social({
+    provider: "google",
+  });
   };
 
   return (
